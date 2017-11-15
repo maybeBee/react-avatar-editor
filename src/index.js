@@ -495,8 +495,8 @@ class AvatarEditor extends React.Component {
         image.resource,
         position.x,
         position.y,
-        position.width,
-        position.height
+        position.width + border * 2,
+        position.height + border * 2
       )
 
       context.restore()
@@ -506,8 +506,6 @@ class AvatarEditor extends React.Component {
   calculatePosition (image, border) {
     image = image || this.state.image
 
-    const [borderX, borderY] = this.getBorders(border)
-
     const croppingRect = this.getCroppingRect()
 
     const width = image.width * this.props.scale
@@ -515,14 +513,6 @@ class AvatarEditor extends React.Component {
 
     let x = -croppingRect.x * width
     let y = -croppingRect.y * height
-
-    if (this.isVertical()) {
-      x += borderY
-      y += borderX
-    } else {
-      x += borderX
-      y += borderY
-    }
 
     return {
       x,
